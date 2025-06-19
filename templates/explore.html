@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="py-5">
+  <div class="container">
+    <h2 class="text-center text-success mb-5">Explore Our Campus</h2>
+
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card h-100 shadow border-success">
+          <img src="{% static 'images/campus.jpg' %}" class="card-img-top" alt="Campus">
+          <div class="card-body bg-dark">
+            <h5 class="card-title text-success">Campus</h5>
+            <p class="card-text">Beautiful green campus with modern infrastructure and serene environment for learning.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card h-100 shadow border-success">
+          <img src="{% static 'images/canteen.jpg' %}" class="card-img-top" alt="Canteen">
+          <div class="card-body bg-dark">
+            <h5 class="card-title text-success">Canteen</h5>
+            <p class="card-text">A clean and hygienic canteen serving a variety of delicious and affordable meals.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card h-100 shadow border-success">
+          <img src="{% static 'images/library.jpg' %}" class="card-img-top" alt="Library">
+          <div class="card-body bg-dark">
+            <h5 class="card-title text-success">Library</h5>
+            <p class="card-text">A vast collection of books, journals, and digital resources to support academic excellence.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

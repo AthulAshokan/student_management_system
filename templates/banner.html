@@ -1,0 +1,21 @@
+{%load static%}
+<!-- banner section -->
+<div id="banner" class="carousel slide mb-4" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="../static/images/banner4.jpg"  class="d-block w-100 img-fluid" alt="..."  >
+        <div class="carousel-caption justify-content-center align-items-center">
+          <h1 class="display-3 fw-bold text-white " 
+          style="text-shadow: 8px 6px 3px rgba(53, 18, 211, 0.347);" 
+          >Innovate</h1>
+          <h1 class="display-1 fw-bold">With Us</h1>
+          <a href="{% url 'explore' %}" class="btn btn-dark btn-lg">
+            Explore Now
+          </a>
+          <a href="{% url 'login' %}" class="btn btn-outline-primary fw-bold bg-light text-dark">
+            Log in
+          </a>
+        </div>
+    </div>
+  </div>
+</div>

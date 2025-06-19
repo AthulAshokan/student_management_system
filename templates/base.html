@@ -1,0 +1,133 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student management</title>
+    <!-- bootstrap link -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- bootstrap icon link -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <!-- css link -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- font link -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <!-- header section -->
+     
+    <header class="header">
+      <div class="header_container">
+          <!-- header left section -->
+          <div class="header_left">
+            <div >
+              <img class="brand_icon" src="{% static 'images/brand_logo.png' %}" alt="brand icon" />
+            </div>
+            <div class="brand_name">MyEduDesk</div>
+          </div>
+
+          <!-- header middle  section -->
+          <div class="header_middle">
+              <nav class="navbar navbar-expand-md navbar navbar-dark bg-dark">
+                <div class="container-fluid">
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                    <ul class="navbar-nav me-auto mb-2 mb-md-0 ">
+                      <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">About Us</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'departments' %}">Departments</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'index' %}#placements">Placements</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'index' %}#contact">Contact Us</a>
+                      </li>
+                  </div>
+                </div>
+              </nav> 
+          </div>
+
+          <!-- header right section -->
+          <div class="header_right">
+            <div>
+             <a href="{%url 'register'%}" class="btn btn-dark">
+               Register
+             </a>
+            </div>
+          </div>
+      </div>
+    </header>
+    <div class="mb-4"></div>
+  
+    {% block content %}
+  
+    {% endblock %}
+   
+     
+    <!-- footer section -->
+    <footer class="py-4 bg-dark text-white">
+      <div class="container">
+        <div class="row gy-4">
+          <!-- logo and address -->
+          <div class="col-md-4">
+            <img class="brand_icon mb-3" src="{% static 'images/brand_logo.png' %}" alt="brand icon" />
+            <p class="mb-1 fw-semibold">MyEduDesk</p>
+            <p class="mb-1">123, Main Street, india, Kerala, pin: 123456 </p>
+            <p class="mb-3">Phone: 123-456-7890</p>
+            <div class="d-flex align-items-center gap-3">
+              <a href="#" class="text-white fs-5"><i class="bi bi-facebook"></i></a>
+              <a href="#" class="text-white fs-5"><i class="bi bi-instagram"></i></a>
+              <a href="#" class="text-white fs-5"><i class="bi bi-twitter-x"></i></a>
+            </div>
+          </div>
+
+          <!-- course explore -->
+          <div class="col-md-4">
+            <h5 class=" mb-3 text-success">Explore Courses</h5>
+            <ul class="list-unstyled">
+              <li><a href="{% url 'departments' %}" class="text-white text-decoration-none d-block py-1">Mechanical Engineering</a></li>
+              <li><a href="{% url 'departments' %}" class="text-white text-decoration-none d-block py-1">Civil Engineering</a></li>
+              <li><a href="{% url 'departments' %}" class="text-white text-decoration-none d-block py-1">Electrical & Electronics Engineering</a></li>
+              <li><a href="{% url 'departments' %}" class="text-white text-decoration-none d-block py-1">Electronics & Communication Engineering</a></li>
+              <li><a href="{% url 'departments' %}" class="text-white text-decoration-none d-block py-1">Computer Science & Engineering</a></li>
+              <li><a href="{% url 'departments' %}" class="text-white text-decoration-none d-block py-1">MBA</a></li>
+              <li><a href="{% url 'departments' %}" class="text-white text-decoration-none d-block py-1">MCA</a></li>
+            </ul>
+          </div>
+
+          <!-- useful links -->
+          <div class="col-md-4">
+            <h5 class=" mb-3  text-success">Useful Links</h5>
+            <ul class="list-unstyled">
+              <li><a href="#" class="text-white text-decoration-none d-block py-1">Musaliar College of Engineering and Technology</a></li>
+              <li><a href="#" class="text-white text-decoration-none d-block py-1">About Education at Musaliar</a></li>
+              <li><a href="#" class="text-white text-decoration-none d-block py-1">Contact</a></li>
+              <li><a href="#" class="text-white text-decoration-none d-block py-1">FAQ</a></li>
+            </ul>
+          </div>
+        </div>
+
+
+        <hr class="border-secondary my-4" />
+
+        <!-- bottom copyright -->
+        <div class="text-center small">
+          <p class="mb-1">© 2025 Musaliar College. All Rights Reserved.</p>
+          <a href="#" class="text-white me-3 text-decoration-underline">Privacy Policy</a>
+          <a href="#" class="text-white text-decoration-underline">Terms of Service</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  </body>
+</html>

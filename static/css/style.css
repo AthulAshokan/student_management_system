@@ -1,0 +1,53 @@
+body{
+  background-color: black;
+  color: white;
+  margin: 0px;
+  padding: 0px;
+  font-family: 'Poppins', sans-serif;
+}
+.header_container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 20px;
+  
+}
+.header_left{
+  display: flex;
+  align-items: center;
+}
+.brand_icon{
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+.brand_name{
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 0px;
+ 
+}
+
+.header_middle{
+  display: flex;
+  align-items: center;
+}
+
+.register-page {
+  background: url("{% static 'images/register_page.jpg' %}") no-repeat center center fixed;
+  background-size: cover;
+  height: 100vh;
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.register-page .glass-form {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  padding: 30px;
+  border-radius: 15px;
+  color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}

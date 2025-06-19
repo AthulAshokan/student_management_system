@@ -1,0 +1,114 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="container mt-5 mb-5">
+  <h2 class="text-center text-success mb-4">Student Dashboard</h2>
+
+  <!-- Profile Summary -->
+  <div class="card mb-4">
+    <div class="card-header text-white">Profile Summary</div>
+    <div class="card-body row bg-dark">
+      <div class="col-md-3 text-center">
+        <img
+          src="{{ user.profile_picture.url }}"
+          class="img-thumbnail rounded-circle bg-dark"
+          width="120"
+          height="120"
+          alt="Profile Picture"
+        />
+      </div>
+      <div class="col-md-9">
+        <p><strong>Name:</strong> {{ user.user_name }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Date of Birth:</strong> {{ user.dob }}</p>
+        <p><strong>Phone:</strong> {{ user.phone_number }}</p>
+        <p><strong>Gender:</strong> {{ user.gender }}</p>
+        <p><strong>Address:</strong> {{ user.address }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Guardian Info -->
+  <div class="card mb-4 bg-dark">
+    <div class="card-header text-white" style="background-color: #3c25c0">
+      Guardian Information
+    </div>
+    <div class="card-body">
+      <p><strong>Guardian Name:</strong> {{ student.guardian_name }}</p>
+      <p><strong>Guardian Contact:</strong> {{ student.guardian_contact }}</p>
+    </div>
+  </div>
+
+  <!-- Certificates -->
+  <div class="card mb-4 bg-dark" style="background-color: #3c25c0">
+    <div class="card-header text-white">Uploaded Certificates</div>
+    <div class="card-body">
+      <p>
+        <strong>SSLC Certificate:</strong>
+        {% if student.sslc_certificate %}
+        <a href="{{ student.sslc_certificate.url }}" target="_blank">View</a>
+        {% else %} Not Uploaded {% endif %}
+      </p>
+      <p>
+        <strong>Additional Certificate:</strong>
+        {% if student.additional_certificate %}
+        <a href="{{ student.additional_certificate.url }}" target="_blank"
+          >View</a
+        >
+        {% else %} Not Uploaded {% endif %}
+      </p>
+    </div>
+  </div>
+
+  <!-- Attendance -->
+  <div class="card mb-4 bg-dark">
+    <div class="card-header">Recent Attendance</div>
+    <div class="card-body">
+      {% if attendance_list %}
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for attendance in attendance_list %}
+          <tr>
+            <td>{{ attendance.date }}</td>
+            <td>{{ attendance.status }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p>No attendance records available.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Announcements / Messages -->
+  <div class="card mb-4 bg-dark">
+    <div class="card-header text-white">Announcements</div>
+    <div class="card-body">
+      {% if announcements %}
+      <ul>
+        {% for ann in announcements %}
+        <li>{{ ann }}</li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p>No announcements at the moment.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Buttons -->
+  <div class="text-center mt-4">
+    <a href="{% url 'logout' %}" class="btn btn-outline-danger">Logout</a>
+    <a href="{% url 'edit_student_profile' %}" class="btn btn-outline-primary"
+      >Edit Profile</a
+    >
+  </div>
+</div>
+
+{% endblock %}
