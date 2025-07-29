@@ -43,7 +43,7 @@
           <label for="profile_pic">Profile Picture (optional)</label>
           <input
             type="file"
-            name="file"
+            name="profile_pic"
             class="form-control"
             placeholder="Profile Picture"
           />
@@ -51,6 +51,7 @@
 
         <div class="mb-3">
           <select name="role" class="form-select" id="roleSelect">
+            <option value="" disabled selected>Select Role</option>
             <option value="student">Student</option>
             <option value="teacher">Teacher</option>
           </select>

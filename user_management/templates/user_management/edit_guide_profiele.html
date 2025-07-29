@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+  <h1>Edit Teacher Profile</h1>
+  <form action="POST" enctype="multipart/form-data">
+    { csrf_token }
+    <label for="profile_pic">profile_pic</label>
+    <input type="text">
+
+  </form>
+</div>
+
+{% endblock %}

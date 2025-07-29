@@ -1,114 +1,263 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} 
+{% load static %}
+{% block content %}
 
-<div class="container mt-5 mb-5">
-  <h2 class="text-center text-success mb-4">Student Dashboard</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .dashboard {
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+    }
 
-  <!-- Profile Summary -->
-  <div class="card mb-4">
-    <div class="card-header text-white">Profile Summary</div>
-    <div class="card-body row bg-dark">
-      <div class="col-md-3 text-center">
-        <img
-          src="{{ user.profile_picture.url }}"
-          class="img-thumbnail rounded-circle bg-dark"
-          width="120"
-          height="120"
-          alt="Profile Picture"
-        />
+    .top-bar {
+      background-color: #372d2d;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .action-buttons a {
+      margin-left: 10px;
+      text-decoration: none;
+      color: #0056b3;
+    }
+
+.action-buttons a:hover {
+  text-decoration: none;
+  color: #007BFF;
+}
+
+
+
+    .left-img {
+      width: 300px;
+      border: 1px ;
+    }
+    .left-img img {
+      width: 100%;
+      border-radius: 10px;
+    }
+    .right-panel {
+      flex: 1;
+      padding-left: 20px;
+    }
+    .nav-buttons {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    .nav-buttons button {
+      padding: 10px 15px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .nav-buttons button:hover {
+      background-color: #0056b3;
+    }
+    .content-box {
+      border: 1px solid #ccc;
+      padding: 15px;
+      border-radius: 8px;
+      min-height: 150px;
+    }
+    .action-buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 10px;
+      text-decoration: none;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="dashboard">
+      <div class="text-center">
+        <h2>Student Dashboard</h2>
       </div>
-      <div class="col-md-9">
-        <p><strong>Name:</strong> {{ user.user_name }}</p>
-        <p><strong>Email:</strong> {{ user.email }}</p>
-        <p><strong>Date of Birth:</strong> {{ user.dob }}</p>
-        <p><strong>Phone:</strong> {{ user.phone_number }}</p>
-        <p><strong>Gender:</strong> {{ user.gender }}</p>
-        <p><strong>Address:</strong> {{ user.address }}</p>
+      <div class="top-bar d-flex justify-content-between align-items-center mb-5">
+        <p class="text-center font-weight-bold " style="font-size: larger; ">Welcome {{ user.user_name }}</p> 
+        <div class="action-buttons">
+          <a href="{% url 'logout' %}" class="btn btn-danger " style="text-decoration: none; color: white;">Logout</a>          
+        </div>
       </div>
-    </div>
-  </div>
+      
+      <div class="main">
+        <div class="row">
+                  <!-- Left Image Section -->
+          <div class="left-img col-md-3 col-sm-12 mb-4">
+              {% if user.profile_pic %}
+                <img class="img-fluid" src="{{ user.profile_pic.url }}" alt="profile Picture">
+              {% else %}
+                <img class="img-thumbnail" src="{% static 'images/profile1.webp' %}" alt="profile ">
+              {% endif %}
+            </div>
+  
+            <!-- Right Panel (Menu + Content) -->
+            <div class="right-panel col-md-9 col-sm-12">
 
-  <!-- Guardian Info -->
-  <div class="card mb-4 bg-dark">
-    <div class="card-header text-white" style="background-color: #3c25c0">
-      Guardian Information
-    </div>
-    <div class="card-body">
-      <p><strong>Guardian Name:</strong> {{ student.guardian_name }}</p>
-      <p><strong>Guardian Contact:</strong> {{ student.guardian_contact }}</p>
-    </div>
-  </div>
+              <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container-fluid">
+                  <a class="navbar-brand" href="#">Menu</a>
 
-  <!-- Certificates -->
-  <div class="card mb-4 bg-dark" style="background-color: #3c25c0">
-    <div class="card-header text-white">Uploaded Certificates</div>
-    <div class="card-body">
-      <p>
-        <strong>SSLC Certificate:</strong>
-        {% if student.sslc_certificate %}
-        <a href="{{ student.sslc_certificate.url }}" target="_blank">View</a>
-        {% else %} Not Uploaded {% endif %}
-      </p>
-      <p>
-        <strong>Additional Certificate:</strong>
-        {% if student.additional_certificate %}
-        <a href="{{ student.additional_certificate.url }}" target="_blank"
-          >View</a
-        >
-        {% else %} Not Uploaded {% endif %}
-      </p>
-    </div>
-  </div>
+                  <!-- Toggle button for small screens -->
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
 
-  <!-- Attendance -->
-  <div class="card mb-4 bg-dark">
-    <div class="card-header">Recent Attendance</div>
-    <div class="card-body">
-      {% if attendance_list %}
-      <table class="table table-bordered table-striped">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for attendance in attendance_list %}
-          <tr>
-            <td>{{ attendance.date }}</td>
-            <td>{{ attendance.status }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-      {% else %}
-      <p>No attendance records available.</p>
-      {% endif %}
-    </div>
-  </div>
+                  <!-- Collapsible menu items -->
+                  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav ms-auto">
+                      <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showContent('profile')">Profile</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showContent('score')">My Score</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showContent('timetable')">Time Table</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showContent('notification')">Notification</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </nav>
 
-  <!-- Announcements / Messages -->
-  <div class="card mb-4 bg-dark">
-    <div class="card-header text-white">Announcements</div>
-    <div class="card-body">
-      {% if announcements %}
-      <ul>
-        {% for ann in announcements %}
-        <li>{{ ann }}</li>
-        {% endfor %}
-      </ul>
-      {% else %}
-      <p>No announcements at the moment.</p>
-      {% endif %}
-    </div>
-  </div>
+              <div class="content-box" id="content-area">
+                Click a button to see content here.
+              </div>
+            </div>
+        </div>
+      </div>
 
-  <!-- Buttons -->
-  <div class="text-center mt-4">
-    <a href="{% url 'logout' %}" class="btn btn-outline-danger">Logout</a>
-    <a href="{% url 'edit_student_profile' %}" class="btn btn-outline-primary"
-      >Edit Profile</a
-    >
-  </div>
 </div>
 
+</div>
+
+
+<script>
+function showContent(type) {
+  let content = {
+    profile: `
+      <div style="display: flex;  color: white; background-color: #1e1e1e; padding: 20px; border-radius: 10px;">
+       
+        <div>
+          <p><strong>Name:</strong> {{ user.user_name }}</p>
+          <p><strong>Email:</strong> {{ user.email }}</p>
+          <p><strong>Date of Birth:</strong> {{ user.dob }}</p>
+          <p><strong>Phone:</strong> {{ user.phone_number }}</p>
+          <p><strong>Gender:</strong> {{ user.gender }}</p>
+          <p><strong>Address:</strong> {{ user.address }}</p>
+
+        </div>
+      </div>
+
+      <div style="margin-top: 20px; padding: 10px; background-color: #6b46c1; color: white; font-weight: bold;">
+        Guardian Information
+      </div>
+
+      <div style="background-color: #1e1e1e; padding: 10px; color: white;">
+          <p><strong>Guardian Name:</strong> {{ student.guardian_name }}</p>
+          <p><strong>Guardian Contact:</strong> {{ student.guardian_contact }}</p>
+      </div>
+
+      <div style="margin-top: 20px; padding: 10px; background-color: #6b46c1; color: white; font-weight: bold;">
+        Uploaded Certificates
+      </div>
+      <div style="background-color: #1e1e1e; padding: 10px; color: white;">
+        <p><strong>SSLC Certificate:</strong> Not Uploaded</p>
+        <p><strong>Additional Certificate:</strong> Not Uploaded</p>
+      </div>
+      <div style="margin-top: 20px; text-align: center; padding: 10px;">
+        <a href="{% url 'edit_student_profile' %}" class="btn btn-primary" style="text-decoration: none;">Edit</a>  
+      </div>
+
+      
+    `,
+   score: `
+      <div style="background-color: #1e1e1e; color: white; padding: 20px; border-radius: 10px;">
+        <h3>Score Report</h3>
+        <table style="width: 100%; border-collapse: collapse;">
+          <tr style="background-color: #6b46c1;">
+            <th style="padding: 10px; border: 1px solid #fff;">Subject</th>
+            <th style="padding: 10px; border: 1px solid #fff;">Marks</th>
+            <th style="padding: 10px; border: 1px solid #fff;">Grade</th>
+          </tr>
+          <tr>
+            <td style="padding: 10px; border: 1px solid #fff;">Math</td>
+            <td style="padding: 10px; border: 1px solid #fff;">85</td>
+            <td style="padding: 10px; border: 1px solid #fff;">A</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px; border: 1px solid #fff;">Science</td>
+            <td style="padding: 10px; border: 1px solid #fff;">90</td>
+            <td style="padding: 10px; border: 1px solid #fff;">A+</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px; border: 1px solid #fff;">English</td>
+            <td style="padding: 10px; border: 1px solid #fff;">78</td>
+            <td style="padding: 10px; border: 1px solid #fff;">B+</td>
+          </tr>
+        </table>
+      </div>
+`,
+    timetable: `
+  <div style="overflow-x: auto;">
+    <table border="1" cellpadding="10" cellspacing="0" style="border-collapse: collapse; width: 100%; background-color: white; color: black; text-align: center;">
+      <thead style="background-color: #f0f0f0;">
+        <tr>
+          <th>Days/Hours</th>
+          ${[...Array(8)].map((_, i) => `<th>Hour ${i + 1}<br>Start<br>End</th>`).join('')}
+        </tr>
+      </thead>
+      <tbody>
+        ${[
+          { day: "Monday" },
+          { day: "Tuesday" },
+          { day: "Wednesday" },
+          { day: "Thursday" },
+          { day: "Friday"},
+          { day: "Saturday" },
+        ]
+          .map(
+            (d) => `
+          <tr>
+            <td><strong>${d.day}</strong></td>
+            ${[...Array(8)].map(() => `<td>09:00<br>10:00</td>`).join('')}
+          </tr>`
+          )
+          .join('')}
+      </tbody>
+    </table>
+    <p style="color: red; font-size: 14px;">*Saturday has special timetable</p>
+  </div>
+`,
+
+    notification: "No new notifications."
+  };
+  document.getElementById('content-area').innerHTML = content[type];
+}
+</script>
+
+</body>
+</html>
+
 {% endblock %}
+
+
+

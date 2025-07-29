@@ -1,21 +1,97 @@
 body{
   background-color: black;
   color: white;
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
   font-family: 'Poppins', sans-serif;
 }
-.header_container{
+
+.header_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background-color: rgb(38, 38, 57);
+  flex-wrap: wrap;
+}
+
+.header_left {
+  display: flex;
+  align-items: center;
+}
+
+.header_middle {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.header_right {
+  display: flex;
+  align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .header_container {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 20px;
+  }
+
+  .header_middle {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .header_right {
+    margin-top: 10px;
+  }
+
+  .navbar-collapse {
+    background-color: #1f1f2e;
+    padding: 10px;
+    border-radius: 10px;
+    width: 100%;
+  }
+}
+
+.brand_icon {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+.brand_name {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* .header_container{
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px 20px;
   
-}
-.header_left{
+} */
+/* .header_left{
   display: flex;
   align-items: center;
-}
+} */
 .brand_icon{
   width: 50px;
   height: 50px;
@@ -30,10 +106,10 @@ body{
  
 }
 
-.header_middle{
+/* .header_middle{
   display: flex;
   align-items: center;
-}
+} */
 
 .register-page {
   background: url("{% static 'images/register_page.jpg' %}") no-repeat center center fixed;

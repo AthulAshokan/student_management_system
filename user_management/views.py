@@ -15,7 +15,7 @@ def register_view(request):
             role = request.POST['role']
             address = request.POST.get('address')
             dob = request.POST['dob']
-            profile_pic = request.FILES.get('profile_pic')
+            profile_pic = request.FILES.get('profile_pic')  
             phone_number = request.POST['phone_number']
             gender = request.POST.get('gender')
 
@@ -42,7 +42,8 @@ def register_view(request):
                 )
             elif role == 'teacher':
                 Teachers.objects.create(
-                    user_id=user,
+                    user
+                    =user,
                     qualification=request.POST.get('qualification'),
                     skills=request.POST.get('skills'),
                     experience=request.POST.get('experience')
@@ -107,19 +108,46 @@ def edit_student_profile(request):
         request.user.address = request.POST.get('address')
         request.user.phone_number = request.POST.get('phone_number')
         request.user.gender = request.POST.get('gender')
-        
         request.user.save()
+        profile_pic = request.FILES.get('profile_pic')
 
+        if profile_pic:
+            request.user.profile_pic = profile_pic
+            request.user.save()
+    
         # Update Students fields
         student.guardian_name = request.POST.get('guardian_name')
         student.guardian_contact = request.POST.get('guardian_contact')
-        print("Guardian name:", request.POST.get('guardian_name'))
-        print("Guardian contact:", request.POST.get('guardian_contact'))
         student.save()
 
         return redirect('student_dashboard')
 
     return render(request, 'user_management/edit_student_profile.html', {'student': student})
+
+
+@login_required
+def edit_guide_profile(request):
+    try:
+        guide = Teachers.objects.get(user = request.user)
+    except Teachers.DoesNotExist:
+        guide = Teachers.objects.create(user = request.user) 
+    if request.method == 'POST':
+        # update coustom model
+        request.user.address = request.POST.get('address')
+        request.user.phone_number = request.POST.get('phone_number')
+        request.user.gender = request.POST.get('gender')
+        request.user.portfile_pic = request.FILES.get('profile_pic')
+        request.user.save()
+
+        # update teacher model
+        guide.qualification = request.POST.get('qualification')
+        guide.skills = request.POST.get('skills')
+        guide.experience = request.POST.get('experience')
+        guide.save()
+
+        return redirect('guide_dashboard')
+
+    return render(request, 'user_management/edit_guide_profile.html', {'guide': guide})
 
 @login_required
 def logout_view(request):

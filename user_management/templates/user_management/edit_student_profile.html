@@ -3,7 +3,7 @@
 
 <div class="container mt-5 mb-5">
   <h2>Edit Profile</h2>
-  <form method="POST">
+  <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     
     <div class="mb-3">
@@ -27,8 +27,8 @@
       <input type="text" name="guardian_contact" value="{{ student.guardian_contact }}" class="form-control" placeholder="Guardian Contact">
     </div>
     <div class="mb-3">
-      <label for="profile_pic">Profile Picture (optional)</label>
-      <input type="file" name="file" class="form-control" placeholder="Profile Picture">
+      <label for="profile_pic">Profile Picture </label>
+      <input type="file" name="profile_pic" class="form-control" placeholder="Profile Picture">
     </div>
     <button type="submit" class="btn btn-success">Update</button>
     <a href="{% url 'student_dashboard' %}" class="btn btn-secondary">Cancel</a>

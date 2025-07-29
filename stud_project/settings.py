@@ -66,15 +66,22 @@ media_root = BASE_DIR / 'media'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#  'default': {
+#  'ENGINE': 'django.db.backends.mysql',
+#  'NAME': 'student_ds', # Database name you created in XAMPP
+#  'USER': 'root', # Default XAMPP MySQL username
+#  'PASSWORD': '', # Default XAMPP MySQL password is blank
+#  'HOST': '127.0.0.1', # Localhost
+#  'PORT': '3306', # Default MySQL port
+#  }
+# }
+
 DATABASES = {
- 'default': {
- 'ENGINE': 'django.db.backends.mysql',
- 'NAME': 'student_ds', # Database name you created in XAMPP
- 'USER': 'root', # Default XAMPP MySQL username
- 'PASSWORD': '', # Default XAMPP MySQL password is blank
- 'HOST': '127.0.0.1', # Localhost
- 'PORT': '3306', # Default MySQL port
- }
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 
 
@@ -119,6 +126,13 @@ STATICFILES_DIRS = [
 ]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
+
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+
+
 AUTH_USER_MODEL = 'user_management.CustomUser'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

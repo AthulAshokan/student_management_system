@@ -1,8 +1,190 @@
-{% extends 'base.html' %} {% block content %}
-<div class="container mt-5">
-  <h2>🎓 Welcome {{ request.user.user_name }}!</h2>
-  <p>This is the <strong>Teacher Dashboard</strong>.</p>
+{% extends 'base.html' %} 
+{% load static %} 
+{% block content %}
 
-  <div></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Guide Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .dashboard {
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+    }
+
+    .top-bar {
+      background-color: #372d2d;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .action-buttons a {
+      margin-left: 10px;
+      text-decoration: none;
+      color: #0056b3;
+    }
+
+.action-buttons a:hover {
+  text-decoration: none;
+  color: #007BFF;
+}
+
+
+
+    .left-img {
+      width: 300px;
+      border: 1px ;
+    }
+    .left-img img {
+      width: 100%;
+      border-radius: 10px;
+    }
+    .right-panel {
+      flex: 1;
+      padding-left: 20px;
+    }
+    .nav-buttons {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    .nav-buttons button {
+      padding: 10px 15px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .nav-buttons button:hover {
+      background-color: #0056b3;
+    }
+    .content-box {
+      border: 1px solid #ccc;
+      padding: 15px;
+      border-radius: 8px;
+      min-height: 150px;
+    }
+    .action-buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 10px;
+      text-decoration: none;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="dashboard">
+      <div class="text-center">
+        <h2>Guide Dashboard</h2>
+      </div>
+      <div class="top-bar d-flex justify-content-between align-items-center mb-5">
+        <p class="text-center font-weight-bold " style="font-size: larger; ">Welcome, {{ user.user_name }}</p> 
+        <div class="action-buttons">
+          <a href="{% url 'logout' %}" class="btn btn-danger " style="text-decoration: none; color: white;">Logout</a>          
+        </div>
+      </div>
+      
+      <div class="main">
+        <div class="row">
+                  <!-- Left Image Section -->
+          <div class="left-img col-md-3 col-sm-12 mb-4">
+              {% if user.profile_pic %}
+                <img class="img-fluid" src="{{ user.profile_pic.url }}" alt="profile Picture">
+              {% else %}
+                <img class="img-thumbnail" src="{% static 'images/profile1.webp' %}" alt="profile ">
+              {% endif %}
+            </div>
+  
+            <!-- Right Panel (Menu + Content) -->
+            <div class="right-panel col-md-9 col-sm-12">
+
+              <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container-fluid">
+                  <a class="navbar-brand" href="#">Menu</a>
+
+
+                  <!-- Toggle button for small screens -->
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+
+                  <!-- Collapsible menu items -->
+                  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav ms-auto">
+                      <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showContent('profile')">Profile</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showContent('department')">Department</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showContent('calender')">calender</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showContent('manage_class')">manage_class</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </nav>
+
+              <div class="content-box" id="content-area">
+                Click a button to see content here.
+              </div>
+            </div>
+        </div>
+      </div>
+
 </div>
+
+</div>
+
+
+<script>
+function showContent(type) {
+  let content = {
+    profile: `
+      <div style="display: flex;  color: white; background-color: #1e1e1e; padding: 20px; border-radius: 10px;">
+       
+        <div>
+          <p><strong>Name :</strong> {{ user.user_name }}</p>
+          <p><strong>Email :</strong> {{ user.email }}</p>
+          <p><strong>Date of Birth :</strong> {{ user.dob }}</p>
+          <p><strong>Gender :</strong> {{ user.gender }}</p>
+          <p><strong>Role :</strong> {{ user.role }}</p>
+          <p><strong>Phone :</strong>{{ user.phone_number }}</p>
+          <p><strong>Address :</strong>{{ user.address }}</p>
+          <p><strong>Subjects :</strong>{{ user.subjects }}</p>
+          <p><strong>Experience :</strong>{{ user.experience }}</p>
+        </div>
+      </div>
+
+      <div style="margin-top: 20px; text-align: center; padding: 10px;">
+        <a href="{% url 'edit_student_profile' %}" class="btn btn-primary" style="text-decoration: none;">Edit</a>  
+      </div>  
+    `,
+   department: "No new notifications."
+      ,
+    calender: "No new notifications.",
+
+    manage_class: "No new notifications."
+  };
+  document.getElementById('content-area').innerHTML = content[type];
+}
+</script>
+
+</body>
+</html>
+
 {% endblock %}
